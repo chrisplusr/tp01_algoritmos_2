@@ -2,6 +2,38 @@ from graham_scan import graham_scan
 from point import Point
 from segments_intersect import any_segments_intersect
 
+def make_points(P):
+    H = []
+    for i in P:
+        H.append(Point(i[0], i[1]))
+    return H
+
+def hull_segments(P):
+    H = make_points(P)
+
+    segments_points = []
+    segments = []
+    hull = graham_scan(H)
+    hull.append(hull[0])
+
+    count = 0
+    for i in hull:
+        if count % 2 == 0:
+            segments_points.append(Point(i.x, i.y, 0))
+        else:
+            segments_points.append(Point(i.x, i.y, 1))
+        count += 1
+    
+    count = 0
+    for i in segments_points:
+        if count % 2 == 0:
+            segments.append(Point(i.x, i.y, 0, other_end=segments_points[count+1]))
+        else:
+            segments.append(Point(i.x, i.y, 1, other_end=segments_points[count-1]))
+        count += 1
+    
+    return segments
+
 P1 = [(-0.0416362796235,2.0778654613117),
 (2.9990350955684,3.8597407039375),
 (2.4995784815943,3.7511631791605),
@@ -24,9 +56,9 @@ P2 = [(-4.2557525101923,-0.2573772649794),
 (-5.1176407387287,1.6868822273003),
 (-4.4962794576908,1.8672774379242)]
 
-E1 = []
-E2 = []
-for i in P1:
-    E1.append(Point(i[0], i[1]))
-graham_scan(E1)
-#grham_scan(P2)
+H = hull_segments(P1)
+print(any_segments_intersect(H))
+'''
+for i in H:
+    print(i, i.p_type)
+'''

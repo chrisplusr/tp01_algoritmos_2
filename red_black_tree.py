@@ -163,10 +163,10 @@ class RedBlackTree:
       yield x.key
       x = self.predecessor(x)
 
-  def search(self, key, x = None):
-    if x is None: x = self.root
-    while x and x.key != key:
-      if key < x.key:
+  def search(self, z):
+    x = self.root
+    while x and x.key != z.key:
+      if direction(x.key, x.key.other_end, z.key) < 0:
         x = x.left
       else:
         x = x.right

@@ -1,4 +1,4 @@
-from graham_scan import direction
+import geometry_tools as gt
 
 class Node:
   RED = True
@@ -149,24 +149,10 @@ class RedBlackTree:
       y = y.parent
     return y
 
-  def inorder_walk(self, x = None):
-    if x is None: x = self.root
-    x = self.minimum()
-    while x:
-      yield x.key
-      x = self.successor(x)
-
-  def reverse_inorder_walk(self, x = None):
-    if x is None: x = self.root
-    x = self.maximum()
-    while x:
-      yield x.key
-      x = self.predecessor(x)
-
   def search(self, z):
     x = self.root
     while x and x.key != z.key:
-      if direction(x.key, x.key.other_end, z.key) < 0:
+      if gt.direction(x.key, x.key.other_end, z.key) < 0:
         x = x.left
       else:
         x = x.right
@@ -174,15 +160,6 @@ class RedBlackTree:
 
   def is_empty(self):
     return bool(self.root)
-
-  def black_height(self, x = None):
-    if x is None: x = self.root
-    height = 0
-    while x:
-      x = x.left
-      if not x or x.is_black():
-        height += 1
-    return height
 
   def __left_rotate(self, x):
     if not x.right:
@@ -223,7 +200,7 @@ class RedBlackTree:
     x = self.root
     while x:
       y = x
-      if direction(x.key, x.key.other_end, z.key) < 0:
+      if gt.direction(x.key, x.key.other_end, z.key) < 0:
         x = x.left
       else:
         x = x.right
@@ -232,7 +209,7 @@ class RedBlackTree:
     if not y:
       self.root = z
     else:
-      if direction(y.key, y.key.other_end, z.key) < 0:
+      if gt.direction(y.key, y.key.other_end, z.key) < 0:
         y.left = z
       else:
         y.right = z
@@ -286,17 +263,3 @@ class RedBlackTree:
     x.color = Node.BLACK
     
   
-
-if __name__ == "__main__":
-  tree = RedBlackTree()
-  tree.add(10)
-  tree.add(3)
-  tree.add(7)
-  tree.add(4)
-  tree.add(20)
-  tree.add(15)
-
-  print(tree)
-
-  for key in tree.inorder_walk():
-    print("key = %s" % key)

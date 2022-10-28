@@ -1,3 +1,4 @@
+import numpy as np
 import geometry_tools as gt
 from functools import cmp_to_key
 
@@ -60,3 +61,26 @@ def graham_scan(P):
         s.append(P_s[i])
         size += 1
     return s
+
+def gift_wrap(P):
+    p0 = min(P, key = lambda p: p.x)
+    index = P.index(p0)
+    
+    result = []
+    l = index
+    result.append(p0)
+    n = len(P)
+
+    while(True):
+        q = (l + 1) % n
+        for i in range(n):
+            if i == l:
+                continue
+            d = gt.direction(P[l], P[i], P[q])
+            if d > 0 or (d == 0 and gt.distance(P[i], P[l]) > gt.distance(P[q], P[l])):
+                q = i
+        l = q
+        if l == index:
+            break
+        result.append(P[q])
+    return result

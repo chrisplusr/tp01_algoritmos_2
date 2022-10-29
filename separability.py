@@ -45,5 +45,31 @@ def shortest_points(H1, H2):
         return points
     return False
 
-def line_eq(p1, p2):
-    m = (p2.y - p1.y) / (p2.x - p1.x)
+def class_model(H1, H2):
+    points = shortest_points(H1, H2)
+    class1 = []
+    class2 = []
+
+    if points != False:
+        pm = gt.Point(((points[0].x + points[1].x)/2), ((points[0].y + points[1].y)/2))
+        val = min(max(H1, key=lambda p: p.x).x, max(H1, key=lambda p:p.y).y)
+        line = [gt.Point(pm.x - val, pm.y + val), gt.Point(pm.x + val, pm.y - val)]
+        
+        for i in H1:
+            d = gt.direction(line[0], i, line[1])
+
+            if d > 0:
+                class1.append(i)
+            else:
+                class2.append(i)
+
+        for i in H2:
+            d = gt.direction(line[0], i, line[1])
+
+            if d > 0:
+                class1.append(i)
+            else:
+                class2.append(i)
+        return class1, class2
+    
+    

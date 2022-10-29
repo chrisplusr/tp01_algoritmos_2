@@ -26,6 +26,13 @@ def cmp_points(p1, p2):
             else:
                 return 1
 
+def naive_alg(H1, H2):
+    for i in H1:
+        for j in H2:
+            if gt.intersect(i, i.other_end, j, j.other_end):
+                return True
+    return False
+
 def any_segments_intersect(S):
     '''
     Verifica se quaisquer dois segmentos de um conjunto

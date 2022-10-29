@@ -1,6 +1,6 @@
 import geometry_tools as gt
 import convex_hull
-from segments_intersect import any_segments_intersect
+import segments_intersect as si
 
 def convex_segments(P):
     '''
@@ -28,9 +28,11 @@ def separability(H1, H2):
     Verifica se duas envoltorias H1 e H2
     se interceptam
     '''
-
+    '''
     H = H2 + H1
-    return any_segments_intersect(H)
+    return si.any_segments_intersect(H)
+    '''
+    return si.naive_alg(H1, H2)
 
 def shortest_points(H1, H2):
     points = [0,1]

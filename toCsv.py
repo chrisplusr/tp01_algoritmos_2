@@ -1,4 +1,4 @@
 import pandas as pd
 
-file = pd.read_csv('titanic.dat', sep=',')
-file.to_csv('titanic.csv', index=None)
+file = pd.read_csv('poker.dat', sep=',')
+file.to_csv('poker.csv', index=None)

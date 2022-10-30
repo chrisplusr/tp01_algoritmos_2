@@ -19,7 +19,7 @@ def convex_segments(P):
     n = len(segments_points)
     for i in range(n):
         segments.append(gt.Point(segments_points[i].x, segments_points[i].y, p_type=0, other_end=segments_points[(i+1)%n]))
-        #segments.append(gt.Point(segments_points[i].x, segments_points[i].y, p_type=0, other_end=segments_points[(i-1)%n]))
+        #segments.append(gt.Point(segments_points[i].x, segments_points[i].y, p_type=1, other_end=segments_points[(i-1)%n]))
     
     return segments
 
@@ -28,10 +28,9 @@ def separability(H1, H2):
     Verifica se duas envoltorias H1 e H2
     se interceptam
     '''
-    '''
-    H = H2 + H1
-    return si.any_segments_intersect(H)
-    '''
+    
+    #return si.any_segments_intersect(H1, H2)
+    
     return si.naive_alg(H1, H2)
 
 def shortest_points(H1, H2):

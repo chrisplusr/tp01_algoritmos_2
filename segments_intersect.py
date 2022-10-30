@@ -33,13 +33,13 @@ def naive_alg(H1, H2):
                 return True
     return False
 
-def any_segments_intersect(S):
+def any_segments_intersect(H1, H2):
     '''
     Verifica se quaisquer dois segmentos de um conjunto
     se interseptam.
     '''
     T = rbt.RedBlackTree() # Inicializa a arvore rubro-negra
-
+    S = H1 + H2
     sorted_segments = sorted(S, key=cmp_to_key(cmp_points)) # Ordena os pontos usando a funçao de comparação
     sorted_segments = map(lambda x: rbt.Node(x), sorted_segments) # Faz com que os pontos sejam nós de uma arvore
     
@@ -52,8 +52,15 @@ def any_segments_intersect(S):
             suc = T.successor(x) # Pega o segmento q esta abaixo de i
             
             # Verifica se existem os segmentos que estão acima de i ou abaixo de i e interceptam i
-            if (pred and gt.intersect(i.key, i.key.other_end, pred.key, pred.key.other_end)) or (suc and gt.intersect(i.key, i.key.other_end, suc.key, suc.key.other_end)):
-                return True
+            
+            if(pred and ((i.key not in H1 and pred.key not in H1) or (i.key not in H2 and pred.key not in H2))):
+                if(pred and gt.intersect(i.key, i.key.other_end, pred.key, pred.key.other_end)):
+                    return True
+            
+            if(suc and ((i.key not in H1 and suc.key not in H1) or (i.key not in H2 and suc.key not in H2))):
+                if(suc and gt.intersect(i.key, i.key.other_end, suc.key, suc.key.other_end)):
+                    return True
+            
         
         if i.key.p_type == 1: # Se o ponto do segmento for final
             

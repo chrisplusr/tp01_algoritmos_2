@@ -1,6 +1,6 @@
 # Trabalho Prático 01 -- Geometria computacional <br>
 **Professor: Renato Vimieiro** <br><br>
-**Alunos: Christian Rodrigues e Álvaro Neto** <br><br>
+**Alunos:** Christian Rodrigues (2019041817) e Álvaro Neto (2019117198)<br><br>
 ## Objetivos:<br>
 Nesse trabalho serão abordados os aspectos práticos de diversos algoritmos de geometria computacional visto nas aulas teóricas. Especificamente, serão explorados aspectos de implementação de algoritmos de envoltória convexa e verificação de interseção de segmentos para o problema de classificação em aprendizado de máquina supervisionado.<br><br>
 O objetivo secundário é fixar o conteúdo. Entende-se que ao implementar a estrutura o aluno conseguirá compreender melhor os conceitos explorados. Dessa forma, o conteúdo teórico será melhor absorvido e fixado. Além disso, os alunos terão a oportunidade de ver conceitos não abordados na disciplina, no caso específico, o problema de classificação em aprendizado de máquina.

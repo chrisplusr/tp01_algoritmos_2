@@ -63,24 +63,26 @@ def graham_scan(P):
     return s
 
 def gift_wrap(P):
-    p0 = min(P, key = lambda p: p.x)
-    index = P.index(p0)
+    p0 = min(P, key = lambda p: p.x) # Acha o ponto mais a esquerda
+    index = P.index(p0) # Encontra o indice de p0
     
-    result = []
-    l = index
-    result.append(p0)
+    hull = [] # Lista contendo a envoltoria convexa
+    hull.append(p0) # p0 por definiçao faz parte da envoltoria convexa
+    
+    j = index
     n = len(P)
-
+    
+    # Equivalente ao do-while(j != index)
     while(True):
-        q = (l + 1) % n
-        for i in range(n):
-            if i == l:
+        k = (j + 1) % n # Pega o proximo ponto
+        for i in range(n): # Percorre todos os pontos de P
+            if i == j:
                 continue
-            d = gt.direction(P[l], P[i], P[q])
-            if d > 0 or (d == 0 and gt.distance(P[i], P[l]) > gt.distance(P[q], P[l])):
-                q = i
-        l = q
-        if l == index:
+            d = gt.direction(P[j], P[i], P[k]) # Calcula a curva
+            if d > 0 or (d == 0 and gt.distance(P[i], P[j]) > gt.distance(P[k], P[j])): # Calcula a maior curva para esquerda
+                k = i
+        j = k
+        if j == index:
             break
-        result.append(P[q])
-    return result
+        hull.append(P[k])
+    return hull
